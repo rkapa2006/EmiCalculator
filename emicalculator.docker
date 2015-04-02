@@ -1,0 +1,13 @@
+#Clones the repo from https://github.com/rkapa2006/EmiCalculator.git
+#Builds EmiCalculator Application using mvn clean install
+#Then runs EmiCalculator Application using Jenkins
+
+#Clone git project
+RUN git clone https://github.com/rkapa2006/EmiCalculator.git
+
+#Build EmiCalculator Maven Project
+RUN mvn clean install
+
+#Deploy and run EmiCalculator Web Application
+ENTRYPOINT ["mvn", "jetty:run-war"]
+EXPOSE 8080
