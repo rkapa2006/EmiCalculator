@@ -16,6 +16,6 @@ WORKDIR EmiCalculator
 #Build EmiCalculator Maven Project
 RUN mvn clean install
 
-#Deploy and run EmiCalculator Web Application
-ENTRYPOINT ["mvn", "jetty:run-war"]
 EXPOSE 8080
+#Deploy and run EmiCalculator Web Application
+CMD mvn jetty:run-war >> server.log && tail -f server.log
