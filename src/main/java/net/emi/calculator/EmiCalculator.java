@@ -5,7 +5,7 @@ import static net.emi.calculator.EmiCalculationUtil.formatPayment;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.emi.calculator.web.EmiRequest;
+import net.emi.calculator.web.MortgageModel;
 
 public class EmiCalculator {
 
@@ -32,21 +32,21 @@ public class EmiCalculator {
 	 * 
 	 * The first element with serial no 0 indicates totals.
 	 * 
-	 * @param emiRequest
+	 * @param emiModel
 	 *            the request object
 	 */
-	public List<EquatedMonthlyInstallment> compute(EmiRequest emiRequest) {
+	public List<EquatedMonthlyInstallment> compute(MortgageModel emiModel) {
 		List<EquatedMonthlyInstallment> paymentList = new ArrayList<>();
 
-		double amount = emiRequest.getMortgageAmount();
+		double amount = emiModel.getPrincipalAmount();
 		if (amount <= 0)
 			throw new RuntimeException("Mortgage Amount required");
 
-		double rate = emiRequest.getAnnualCostOfMortgage();
+		double rate = emiModel.getInterestRate();
 		if (rate <= 0)
 			throw new RuntimeException("Cost of mortgage required");
 
-		int numberOfMonths = emiRequest.getMortgageTerm();
+		int numberOfMonths = emiModel.getTerm();
 		if (numberOfMonths <= 0)
 			throw new RuntimeException("Mortgage term required");
 
@@ -88,7 +88,7 @@ public class EmiCalculator {
 		
 		double emi = computeEMI(amount, rate, numberOfMonths);
 		
-		for(int i=1; i<= numberOfMonths; i++) {
+		for (int i = 1; i <= numberOfMonths; i++) {
 			
 			double interestAmount = computeInterest(amount, rate);
 			double principalAmount = emi - interestAmount;

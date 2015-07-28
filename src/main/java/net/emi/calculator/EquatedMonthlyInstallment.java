@@ -1,13 +1,20 @@
 package net.emi.calculator;
 
 import static net.emi.calculator.EmiCalculationUtil.roundOff;
+import lombok.Getter;
 
-public class EquatedMonthlyInstallment {
+@Getter
+public class EquatedMonthlyInstallment implements
+		Comparable<EquatedMonthlyInstallment> {
 	
 	private int serialNo;
+
 	private double principalAmount;
+
 	private double interestAmount;
 	
+	private double totalAmount;
+
 	public EquatedMonthlyInstallment(int serialNo, double principalAmount,
 			double interestAmount) {
 		this.serialNo = serialNo;
@@ -23,30 +30,6 @@ public class EquatedMonthlyInstallment {
 		return new EquatedMonthlyInstallment(serialNo, principalAmount,
 				interestAmount);
 	}
-
-	public void setSerialNo(int serialNo) {
-		this.serialNo = serialNo;
-	}
-
-	public void setPrincipalAmount(double principalAmount) {
-		this.principalAmount = principalAmount;
-	}
-
-	public void setInterestAmount(double interestAmount) {
-		this.interestAmount = interestAmount;
-	}
-
-	public int getSerialNo() {
-		return this.serialNo;
-	}
-	
-	public double getPrincipalAmount() {
-		return this.principalAmount;
-	}
-	
-	public double getInterestAmount() {
-		return this.interestAmount;
-	}
 	
 	public double getTotalAmount() {
 		return roundOff(principalAmount + interestAmount, 2);
@@ -58,6 +41,11 @@ public class EquatedMonthlyInstallment {
 		return "MonthlyPayment [serialNo=" + serialNo + ", principalAmount="
 				+ principalAmount + ", interestAmount=" + interestAmount
 				+ " totalAmount=" + roundOff(getTotalAmount(), 2) + "]";
+	}
+
+	@Override
+	public int compareTo(EquatedMonthlyInstallment other) {
+		return Integer.valueOf(other.getSerialNo()).compareTo(this.serialNo);
 	}
 
 }
