@@ -8,4 +8,4 @@ Set up maven in your box.
 
 Then do mvn jetty:run, to run the server.
 
-goto http://localhost:8080/emiCalculator in your browser to see the application.
+goto http://localhost:8080/emiCalculator in your browser to access the app.
